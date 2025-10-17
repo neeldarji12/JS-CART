@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products with Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            text-align: center;
+        }
+
+        #products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background: #fff;
+            margin: 15px;
+            padding: 15px;
+            width: 230px;
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🛍️ Product Store</h1>
+    <div id="products"></div>
+
+    <script>
+        var arr = [
+            { id: 1, name: "Watch", img: "https://www.sonatawatches.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwe2b0d458/images/Sonata/Catalog/77143YL01_1.jpg?sw=800&sh=800", price: 2000 },
+            { id: 2, name: "Shoes", img: "https://kxadmin.metroshoes.com/product/19-6040-11-40/1200/19-6040H11.jpg", price: 20000 },
+            { id: 3, name: "Shirt", img: "https://www.ottostore.com/cdn/shop/files/OTTOXDQ_2392copya_500x.jpg?v=1748846266", price: 1000 },
+            { id: 4, name: "Pant", img: "https://imagescdn.jaypore.com/img/app/product/3/39606151-12247321.jpg?w=500&auto=format", price: 1550 },
+            { id: 5, name: "Belt", img: "https://imagescdn.louisphilippe.com/img/app/product/3/39708441-14582109.jpg?auto=format&w=390", price: 987 },
+            { id: 6, name: "Perfume", img: "https://www.themancompany.com/cdn/shop/products/6_51260287-fb42-4c02-bb6a-7bfa018220b3.jpg?v=1660284262", price: 1200 },
+            { id: 7, name: "Car", img: "https://hips.hearstapps.com/hmg-prod/images/bmwi8-car-gift-1504031630.jpg", price: 200000 },
+            { id: 8, name: "Home", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKpvCqGI4-FgKWCPAxdF_RW3t7fvfoJksAww&s", price: 10000000 },
+            { id: 9, name: "Beardo", img: "https://beardo.in/cdn/shop/products/8006-don-beardos-signature-kit-2160x2160-fop.webp?v=1681903953", price: 20000 }
+        ];
+
+        function addToCart(el) {
+            var cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push(el);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(el.name + " added to cart ");
+        }
+
+        arr.map(el => {
+            let card = document.createElement("div");
+            card.className = "card";
+
+            let img = document.createElement("img");
+            img.src = el.img;
+
+            let name = document.createElement("h2");
+            name.innerHTML = el.name;
+
+            let price = document.createElement("h3");
+            price.innerHTML = "₹" + el.price;
+
+            let btn = document.createElement("button");
+            btn.innerHTML = "Add to Cart";
+            btn.onclick = () => addToCart(el);
+
+            card.append(img, name, price, btn);
+            document.getElementById("products").append(card);
+        });
+    </script>
+</body>
+</html>

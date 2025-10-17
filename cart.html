@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cart</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f6fa;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 30px;
+    }
+
+    div {
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 250px;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    img {
+      width: 100%;
+      height: 230px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 22px;
+      color: #2f3640;
+      text-align: center;
+      width: 100%;
+    }
+
+    h3 {
+      font-size: 18px;
+      color: #2f3640;
+      margin: 10px 0 5px 0;
+    }
+
+    p {
+      margin: 5px;
+      color: #555;
+      font-size: 16px;
+    }
+
+    button {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 15px;
+      border-radius: 6px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #cc0000;
+    }
+  </style>
+</head>
+
+<body>
+  <h1> My Cart</h1>
+
+  <script>
+    var cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function displayProducts() {
+      document.querySelectorAll("div:not(:first-child)").forEach(e => e.remove());
+
+      if (cart.length === 0) {
+        var emptyMsg = document.createElement("h2");
+        emptyMsg.textContent = "Your cart is empty 🛒";
+        emptyMsg.style.color = "#555";
+        emptyMsg.style.width = "100%";
+        emptyMsg.style.textAlign = "center";
+        document.body.append(emptyMsg);
+        return;
+      }
+
+      cart.map((el, i) => {
+        var div = document.createElement("div");
+
+        var image = document.createElement("img");
+        image.src = el.img;
+
+        var name = document.createElement("h3");
+        name.textContent = el.name;
+
+        var price = document.createElement("p");
+        price.textContent = "Price: ₹" + el.price;
+
+        var delbtn = document.createElement("button");
+        delbtn.textContent = "Remove";
+        delbtn.addEventListener("click", function () {
+          cart.splice(i, 1);
+          updateCart();
+          displayProducts();
+        });
+
+        div.append(image, name, price, delbtn);
+        document.body.append(div);
+      });
+    }
+
+    function updateCart() {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    displayProducts();
+  </script>
+</body>
+</html>
